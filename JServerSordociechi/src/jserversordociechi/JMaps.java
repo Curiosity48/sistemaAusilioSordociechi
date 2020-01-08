@@ -16,8 +16,11 @@ public class JMaps {
     public JMaps() {
         
         position = new GeoPosition(0,0);
-        
     }
+    
+    
+
+    
    
    
    
