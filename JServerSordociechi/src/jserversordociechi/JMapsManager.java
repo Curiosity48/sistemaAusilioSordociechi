@@ -15,27 +15,15 @@ import java.util.logging.Logger;
  *
  * @author peduzzi_samuele
  */
-public class JMaps {
+public class JMapsManager {
 
     private GeoPosition position;
 
-    public JMaps() {
+    public JMapsManager() {
 
         position = new GeoPosition(0, 0);
     }
 
-    public void sendGoogleMapsHttpRequest(String requestString) {
-
-        try {
-            URL url;
-            url = new URL(requestString);
-            HttpsConnection conn = (HttpsConnection) url.openConnection();
-            InputStream stream = conn.getInputStream();
-        } 
-        catch (Exception ex) {
-            Logger.getLogger(JMaps.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+    
 
 }
