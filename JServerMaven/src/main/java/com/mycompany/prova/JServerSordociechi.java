@@ -15,7 +15,7 @@ public class JServerSordociechi {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        JMapsManager mM = new JMapsManager("AIzaSyBnqC6wcZ2_HAWp4XgllXXPC3IEJ9xouAs");
     }
     
 }
