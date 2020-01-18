@@ -7,10 +7,13 @@ package com.mycompany.prova;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.TravelMode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -32,7 +35,7 @@ public class JMapsManager {
 
         try {
             this.apiKey = apiKey;
-            position = new GeoPosition(0, 0);
+            position = new GeoPosition(0,0);
             context = new GeoApiContext.Builder()
                     .apiKey(apiKey)
                     .build();
@@ -46,7 +49,7 @@ public class JMapsManager {
         try {
             GeocodingResult[] results;
             results = GeocodingApi.geocode(context,
-                    "1600 Amphitheatre Parkway Mountain View, CA 94043").await();
+                    "Via Cadorna 45, IT 22060").await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             System.out.println(gson.toJson(results[0].addressComponents));
         } catch (Exception ex) {
@@ -56,7 +59,23 @@ public class JMapsManager {
         return true;
     }
 
-    public boolean makeDirectionsRequest() {
+    public boolean makeDirectionsRequest(String origin, String destination) {
+        
+        try {
+            DirectionsResult result;
+            result = DirectionsApi.newRequest(context).origin(origin)
+                    .destination(destination)
+                    .mode(TravelMode.WALKING)
+                    .await();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            System.out.println(gson.toJson(result));
+        } catch (ApiException ex) {
+            Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return true;
     }
 
