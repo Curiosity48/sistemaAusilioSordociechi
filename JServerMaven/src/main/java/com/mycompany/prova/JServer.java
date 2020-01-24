@@ -7,8 +7,25 @@ package com.mycompany.prova;
 
 /**
  *
- * @author samue
+ * @author peduzzi_samuele
  */
 public class JServer {
+    
+    private String apiKey;
+    private JMapsManager mapsMng; 
+
+    public JServer() {
+        apiKey = "AIzaSyBnqC6wcZ2_HAWp4XgllXXPC3IEJ9xouAs";
+        mapsMng = new JMapsManager(apiKey);
+    }
+    
+    public void execServerRoutine() {
+        String origin = "Asso";
+        String destination = "Mariano";
+        mapsMng.makeDirectionsRequest(origin, destination);
+    }
+    
+    
+    
     
 }

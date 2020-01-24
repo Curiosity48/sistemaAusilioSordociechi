@@ -59,8 +59,8 @@ public class JMapsManager {
         return true;
     }
 
-    public boolean makeDirectionsRequest(String origin, String destination) {
-        
+    public String makeDirectionsRequest(String origin, String destination) {
+        String strResult = "";
         try {
             DirectionsResult result;
             result = DirectionsApi.newRequest(context).origin(origin)
@@ -68,7 +68,7 @@ public class JMapsManager {
                     .mode(TravelMode.WALKING)
                     .await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            System.out.println(gson.toJson(result));
+            strResult = gson.toJson(result);
         } catch (ApiException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -76,7 +76,7 @@ public class JMapsManager {
         } catch (IOException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        return strResult;
     }
 
 }

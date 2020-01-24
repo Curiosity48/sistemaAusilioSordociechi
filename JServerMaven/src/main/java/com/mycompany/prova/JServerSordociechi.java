@@ -15,10 +15,8 @@ public class JServerSordociechi {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JMapsManager mM = new JMapsManager("AIzaSyBnqC6wcZ2_HAWp4XgllXXPC3IEJ9xouAs");
-        mM.makeDirectionsRequest("Milan", "London"); //Test Milano a londra
-        
-        
+        JServer server = new JServer();
+        server.execServerRoutine();
     }
     
 }
