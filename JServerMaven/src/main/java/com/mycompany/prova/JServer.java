@@ -20,9 +20,10 @@ public class JServer {
     }
     
     public void execServerRoutine() {
-        String origin = "Asso";
-        String destination = "Mariano";
-        mapsMng.makeDirectionsRequest(origin, destination);
+        String origin = "Milan, IT";
+        String destination = "London";
+        System.out.println(mapsMng.makeDirectionsRequestByFoot(origin, destination));
+        
     }
     
     
