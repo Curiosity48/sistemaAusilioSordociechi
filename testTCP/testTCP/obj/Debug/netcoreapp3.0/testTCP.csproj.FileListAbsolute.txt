@@ -1,3 +1,0 @@
-R:\Documents\Visual Studio 2019\testTCP\testTCP\obj\Debug\netcoreapp3.0\testTCP.csprojAssemblyReference.cache
-R:\Documents\Visual Studio 2019\testTCP\testTCP\obj\Debug\netcoreapp3.0\testTCP.AssemblyInfoInputs.cache
-R:\Documents\Visual Studio 2019\testTCP\testTCP\obj\Debug\netcoreapp3.0\testTCP.AssemblyInfo.cs
