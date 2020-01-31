@@ -109,7 +109,7 @@ public class JMapsManager {
     
     private Integer getDirectionAngle(DirectionsRoute route) { 
         Integer directionAngle = 90;  //90,360 --> Vai dritto 0--> Vai a destra 180--> Vai a sinistra 270--> Torna indietro
-            
+        
         return directionAngle;
     }
 

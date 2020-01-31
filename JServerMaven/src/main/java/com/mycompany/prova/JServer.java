@@ -22,7 +22,7 @@ public class JServer {
     public void execServerRoutine() {
         String origin = "Milan, IT";
         String destination = "London";
-        System.out.println(mapsMng.makeDirectionsRequestByFoot(origin, destination));
+        mapsMng.eseguiRichiestaIstruzioniSordocieco(origin, destination);
         
     }
     
