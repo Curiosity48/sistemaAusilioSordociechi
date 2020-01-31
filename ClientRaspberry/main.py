@@ -1,12 +1,12 @@
 import cv2
-import MyTcpClient
+import Bluetooth
 
 cv2.namedWindow("Original")
 vc = cv2.VideoCapture(0)
-sock = MyTcpClient()
 
 if vc.isOpened():   # try to get the first frame
     rval, frame = vc.read()
+    bt = Bluetooth
 else:
     rval = False
 
