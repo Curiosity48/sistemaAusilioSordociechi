@@ -100,17 +100,18 @@ public class JMapsManager {
     }
     
     
-    private List getDirectionsAngles(DirectionsResult result) {
+    private List getDirectionsAngles(DirectionsResult result) { //Iterazioni per gli steps
         List angles  = new ArrayList();
-        
-        
+        for (int i = 0; i < result.routes.length; i++) {
+            DirectionsLeg legs = result.routes[i];
+            for (int j = 0; j < routes.length; j++) {
+                routes.
+            }
+        }
+        result.routes[0].legs[0].steps[0].st
         return angles;
     }
     
-    private Integer getDirectionAngle(DirectionsRoute route) { 
-        Integer directionAngle = 90;  //90,360 --> Vai dritto 0--> Vai a destra 180--> Vai a sinistra 270--> Torna indietro
-        
-        return directionAngle;
-    }
+ 
 
 }
