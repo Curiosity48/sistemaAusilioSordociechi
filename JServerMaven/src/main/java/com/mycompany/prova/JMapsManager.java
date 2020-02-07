@@ -135,7 +135,7 @@ public class JMapsManager {
     
     private float getDirectionAngle() { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
         
-        float angle = 0; //Dritto avanti 
+        float angle = 0; //0 --> Avanti dritto 90 --> Destra 270 --> Sinistra 180 --> Indietro
         
         return angle;
     }
