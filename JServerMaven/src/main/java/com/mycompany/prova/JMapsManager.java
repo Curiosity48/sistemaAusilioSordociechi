@@ -11,9 +11,12 @@ import com.google.maps.DirectionsApi;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsLeg;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,7 +92,8 @@ public class JMapsManager {
                     .await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             dirResult = result;
-            System.out.println(gson.toJson(result.routes)); //Stampa le coordinate dei wayPointa
+            getDirectionsAngles(result);
+            //System.out.println(gson.toJson(result.routes)); //Stampa le coordinate dei wayPointa
         } catch (ApiException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -102,15 +106,40 @@ public class JMapsManager {
     
     private List getDirectionsAngles(DirectionsResult result) { //Iterazioni per gli steps
         List angles  = new ArrayList();
-        for (int i = 0; i < result.routes.length; i++) {
-            DirectionsLeg legs = result.routes[i];
-            for (int j = 0; j < routes.length; j++) {
-                routes.
+        for (int i = 0; i < result.routes.length; i++) { //Iterazione tra le routes
+            DirectionsRoute route = result.routes[i];
+            for (int j = 0; j < route.legs.length; j++) { //Iterazione tra le legs
+                DirectionsLeg leg = route.legs[j];
+                for (int k = 0; k < leg.steps.length; k++) { //Iterazione tra gli steps
+                    DirectionsStep step = leg.steps[k];
+                    //System.out.println(step.toString());
+                    //System.out.println("startLocation -->" + step.startLocation);
+                    //System.out.println("endLocation -->" + step.endLocation);
+                    LatLng startLocation = step.startLocation; //Posizione di partenza dello step
+                    LatLng endLocation = step.endLocation; //Posizione di arrivo dello step
+                    
+                    double startLat = startLocation.lat;
+                    double startLng = startLocation.lng;
+                    
+                    double endLat = endLocation.lat;
+                    double endLng = endLocation.lng;
+                    
+                    
+                    
+                }
             }
         }
-        result.routes[0].legs[0].steps[0].st
         return angles;
     }
+    
+    
+    private float getDirectionAngle() { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
+        
+        float angle = 0; //Dritto avanti 
+        
+        return angle;
+    }
+    
     
  
 

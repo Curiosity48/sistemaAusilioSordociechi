@@ -21,7 +21,7 @@ public class JServer {
     
     public void execServerRoutine() {
         String origin = "Via Santa Caterina da Siena, Mariano Comense, CO, Italia";
-        String destination = "Mariano Comense - Stazione Trenord, Mariano Comense, CO, Italia";
+        String destination = "Carugo, CO, Italia";
         mapsMng.eseguiRichiestaIstruzioniSordocieco(origin, destination);
         
     }
