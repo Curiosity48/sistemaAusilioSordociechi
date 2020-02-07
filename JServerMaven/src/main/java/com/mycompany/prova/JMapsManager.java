@@ -36,18 +36,18 @@ public class JMapsManager {
     private GeoPosition position;
     private String apiKey;
     private GeoApiContext context;
-    
+
     private DirectionsResult dirResult;
 
     public JMapsManager(String apiKey) {
 
         try {
             this.apiKey = apiKey;
-            position = new GeoPosition(0,0);
+            position = new GeoPosition(0, 0);
             context = new GeoApiContext.Builder()
                     .apiKey(apiKey)
                     .build();
-            
+
             dirResult = null;
 
         } catch (Exception ex) {
@@ -68,21 +68,15 @@ public class JMapsManager {
 
         return true;
     }
-    
-    
+
     public String eseguiRichiestaIstruzioniSordocieco(String origin, String destination) {
-        
+
         String istructions = ""; //<-- Successivamente da sostituire con un  oggetto apposito contenente le istruzioni
         makeDirectionsRequestByFoot(origin, destination);
-        
-        
-        
-        
+
         return istructions;
     }
-    
-    
-    
+
     private void makeDirectionsRequestByFoot(String origin, String destination) { //Richiesta e salvataggio dei WayPoints
         try {
             DirectionsResult result;
@@ -102,10 +96,9 @@ public class JMapsManager {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     private List getDirectionsAngles(DirectionsResult result) { //Iterazioni per gli steps
-        List angles  = new ArrayList();
+        List angles = new ArrayList();
         for (int i = 0; i < result.routes.length; i++) { //Iterazione tra le routes
             DirectionsRoute route = result.routes[i];
             for (int j = 0; j < route.legs.length; j++) { //Iterazione tra le legs
@@ -117,30 +110,29 @@ public class JMapsManager {
                     //System.out.println("endLocation -->" + step.endLocation);
                     LatLng startLocation = step.startLocation; //Posizione di partenza dello step
                     LatLng endLocation = step.endLocation; //Posizione di arrivo dello step
-                    
-                    double startLat = startLocation.lat;
-                    double startLng = startLocation.lng;
-                    
-                    double endLat = endLocation.lat;
-                    double endLng = endLocation.lng;
-                    
-                    
-                    
+                    Double angle = getDirectionAngle(startLocation, endLocation);
                 }
             }
         }
         return angles;
     }
-    
-    
-    private float getDirectionAngle() { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
+
+    private double getDirectionAngle(LatLng startLocation, LatLng endLocation) { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
+//      Δφ = ln( tan( latB / 2 + π / 4 ) / tan( latA / 2 + π / 4) )
+//      Δlon = abs( lonA - lonB )
+//      direzione :  θ = atan2( Δlon ,  Δφ )
+
+        double startLat = startLocation.lat;
+        double startLng = startLocation.lng;
+
+        double endLat = endLocation.lat;
+        double endLng = endLocation.lng;
+
+        double angle = 0.0; //0 --> Avanti dritto 90 --> Destra 270 --> Sinistra 180 --> Indietro
+        //double Δφ = Math.l
         
-        float angle = 0; //0 --> Avanti dritto 90 --> Destra 270 --> Sinistra 180 --> Indietro
         
-        return angle;
+        return angle;        
     }
-    
-    
- 
 
 }
