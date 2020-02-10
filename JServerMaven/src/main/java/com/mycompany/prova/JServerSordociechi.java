@@ -17,6 +17,7 @@ public class JServerSordociechi {
     public static void main(String[] args) {
         JServer server = new JServer();
         server.execServerRoutine();
+        
     }
     
 }

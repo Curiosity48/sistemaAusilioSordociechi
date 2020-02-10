@@ -5,6 +5,8 @@
  */
 package com.mycompany.prova;
 
+import com.google.maps.model.LatLng;
+
 /**
  *
  * @author peduzzi_samuele
@@ -20,10 +22,15 @@ public class JServer {
     }
     
     public void execServerRoutine() {
-        String origin = "Via Santa Caterina da Siena, Mariano Comense, CO, Italia";
-        String destination = "Carugo, CO, Italia";
-        System.out.println(mapsMng.eseguiRichiestaIstruzioniSordocieco(origin, destination));
+//        String origin = "Via Santa Caterina da Siena, Mariano Comense, CO, Italia";
+//        String destination = "Mariano Comense - Stazione Trenord, Mariano Comense, CO";
+//        System.out.println(mapsMng.eseguiRichiestaIstruzioniSordocieco(origin, destination));
         
+        LatLng startLocation = new LatLng(45.687420, 9.179614);             
+        LatLng endLocation = new LatLng(45.693102, 9.180554);
+
+        
+        System.out.println(mapsMng.getDirectionAngle(startLocation, endLocation));
     }
     
     

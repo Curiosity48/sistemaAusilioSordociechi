@@ -121,7 +121,7 @@ public class JMapsManager {
         return angles;
     }
 
-    private double getDirectionAngle(LatLng startLocation, LatLng endLocation) { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
+    public double getDirectionAngle(LatLng startLocation, LatLng endLocation) { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
 //      Δφ = ln( tan( latB / 2 + π / 4 ) / tan( latA / 2 + π / 4) )
 //      Δlon = abs( lonA - lonB )
 //      direzione :  θ = atan2( Δlon ,  Δφ )
