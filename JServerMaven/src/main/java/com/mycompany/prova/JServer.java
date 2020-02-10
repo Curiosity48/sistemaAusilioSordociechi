@@ -22,7 +22,7 @@ public class JServer {
     public void execServerRoutine() {
         String origin = "Via Santa Caterina da Siena, Mariano Comense, CO, Italia";
         String destination = "Carugo, CO, Italia";
-        mapsMng.eseguiRichiestaIstruzioniSordocieco(origin, destination);
+        System.out.println(mapsMng.eseguiRichiestaIstruzioniSordocieco(origin, destination));
         
     }
     

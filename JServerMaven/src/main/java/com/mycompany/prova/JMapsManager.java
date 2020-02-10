@@ -72,12 +72,13 @@ public class JMapsManager {
     public String eseguiRichiestaIstruzioniSordocieco(String origin, String destination) {
 
         String istructions = ""; //<-- Successivamente da sostituire con un  oggetto apposito contenente le istruzioni
-        makeDirectionsRequestByFoot(origin, destination);
+        istructions = makeDirectionsRequestByFoot(origin, destination);
 
         return istructions;
     }
 
-    private void makeDirectionsRequestByFoot(String origin, String destination) { //Richiesta e salvataggio dei WayPoints
+    private String makeDirectionsRequestByFoot(String origin, String destination) { //Richiesta e salvataggio dei WayPoints
+        String strResult = "";
         try {
             DirectionsResult result;
             result = DirectionsApi.newRequest(context).origin(origin)
@@ -86,7 +87,8 @@ public class JMapsManager {
                     .await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             dirResult = result;
-            getDirectionsAngles(result);
+            List angles = getDirectionsAngles(result);
+            strResult = angles.toString();
             //System.out.println(gson.toJson(result.routes)); //Stampa le coordinate dei wayPointa
         } catch (ApiException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,6 +97,7 @@ public class JMapsManager {
         } catch (IOException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return strResult;
     }
 
     private List getDirectionsAngles(DirectionsResult result) { //Iterazioni per gli steps
@@ -111,6 +114,7 @@ public class JMapsManager {
                     LatLng startLocation = step.startLocation; //Posizione di partenza dello step
                     LatLng endLocation = step.endLocation; //Posizione di arrivo dello step
                     Double angle = getDirectionAngle(startLocation, endLocation);
+                    angles.add(angle);
                 }
             }
         }
@@ -129,8 +133,12 @@ public class JMapsManager {
         double endLng = endLocation.lng;
 
         double angle = 0.0; //0 --> Avanti dritto 90 --> Destra 270 --> Sinistra 180 --> Indietro
-        //double Δφ = Math.l
+        double Δφ = Math.log( Math.tan(endLat / 2 + Math.PI / 4) / Math.tan(startLat / 2 + Math.PI / 4) );
+        double Δlon = Math.abs(startLng - endLng);
+        double direzione = Math.atan2(Δlon,Δφ);
         
+        //if(direzione > 0 && direzione < 360)
+        angle = direzione;
         
         return angle;        
     }
