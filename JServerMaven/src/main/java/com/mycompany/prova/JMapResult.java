@@ -14,6 +14,7 @@ import java.util.List;
 public class JMapResult {
     
     private List orientationAngles;
+    private List steps;
     
     
 }
