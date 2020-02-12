@@ -70,16 +70,16 @@ public class JMapsManager {
         return true;
     }
 
-    public String eseguiRichiestaIstruzioniSordocieco(String origin, String destination) {
-
-        String istructions = ""; //<-- Successivamente da sostituire con un  oggetto apposito contenente le istruzioni
-        istructions = makeDirectionsRequestByFoot(origin, destination);
-
-        return istructions;
+    public JMapResult eseguiRichiestaIstruzioniSordocieco(String origin, String destination) {
+        
+        JMapResult myResult  = new JMapResult(); //<-- Successivamente da sostituire con un  oggetto apposito contenente le istruzioni
+        myResult = makeDirectionsRequestByFoot(origin, destination);
+        
+        return myResult;
     }
 
-    private String makeDirectionsRequestByFoot(String origin, String destination) { //Richiesta e salvataggio dei WayPoints
-        String strResult = "";
+    private JMapResult makeDirectionsRequestByFoot(String origin, String destination) { //Richiesta e salvataggio dei WayPoints
+        JMapResult mapResult = new JMapResult();
         try {
             DirectionsResult result;
             result = DirectionsApi.newRequest(context).origin(origin)
@@ -89,7 +89,7 @@ public class JMapsManager {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             dirResult = result;
             List angles = getDirectionsAngles(result);
-            strResult = angles.toString();
+            mapResult.setOrientationAngles(angles);
             //System.out.println(gson.toJson(result.routes)); //Stampa le coordinate dei wayPointa
         } catch (ApiException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +98,7 @@ public class JMapsManager {
         } catch (IOException ex) {
             Logger.getLogger(JMapsManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return strResult;
+        return mapResult;
     }
 
     private List getDirectionsAngles(DirectionsResult result) { //Iterazioni per gli steps
