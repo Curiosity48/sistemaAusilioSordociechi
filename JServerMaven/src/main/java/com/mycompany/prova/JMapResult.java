@@ -5,11 +5,15 @@
  */
 package com.mycompany.prova;
 
+import java.util.List;
+
 /**
  *
  * @author peduzzi_samuele
  */
 public class JMapResult {
+    
+    private List orientationAngles;
     
     
 }
