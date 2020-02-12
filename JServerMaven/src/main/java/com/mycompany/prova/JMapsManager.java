@@ -18,6 +18,7 @@ import com.google.maps.model.DirectionsStep;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
 import com.google.maps.model.TravelMode;
+import java.awt.Point;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -33,7 +34,7 @@ import java.util.logging.Logger;
  */
 public class JMapsManager {
 
-    private GeoPosition position;
+    private LatLng position;
     private String apiKey;
     private GeoApiContext context;
 
@@ -43,7 +44,7 @@ public class JMapsManager {
 
         try {
             this.apiKey = apiKey;
-            position = new GeoPosition(0, 0);
+            position = new LatLng(0, 0);
             context = new GeoApiContext.Builder()
                     .apiKey(apiKey)
                     .build();
@@ -113,7 +114,7 @@ public class JMapsManager {
                     //System.out.println("endLocation -->" + step.endLocation);
                     LatLng startLocation = step.startLocation; //Posizione di partenza dello step
                     LatLng endLocation = step.endLocation; //Posizione di arrivo dello step
-                    Double angle = getDirectionAngle(startLocation, endLocation);
+                    double angle = getDirectionAngle(startLocation, endLocation);
                     angles.add(angle);
                 }
             }
@@ -121,26 +122,36 @@ public class JMapsManager {
         return angles;
     }
 
-    public double getDirectionAngle(LatLng startLocation, LatLng endLocation) { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
+    private double getDirectionAngle(LatLng startLocation, LatLng endLocation) { //https://www.sunearthtools.com/it/tools/distance.php#top <-- Formula calcolo angolo
 //      Δφ = ln( tan( latB / 2 + π / 4 ) / tan( latA / 2 + π / 4) )
 //      Δlon = abs( lonA - lonB )
 //      direzione :  θ = atan2( Δlon ,  Δφ )
+
+        double angle = 0.0f; //0 --> Avanti dritto 90 --> Destra 270 --> Sinistra 180 --> Indietro
 
         double startLat = startLocation.lat;
         double startLng = startLocation.lng;
 
         double endLat = endLocation.lat;
         double endLng = endLocation.lng;
+        
+        angle = calculateAngle(startLng, startLat, endLng, endLat);
+//        
+//        double Δφ = Math.log( Math.tan(endLat / 2 + Math.PI / 4) / Math.tan(startLat / 2 + Math.PI / 4) );
+//        double Δlon = Math.abs(startLng - endLng);
+//        double direzione = Math.atan2(Δlon,Δφ);
+//        
+//        //if(direzione > 0 && direzione < 360)
+//        angle = direzione;
+        return angle;
+    }
 
-        double angle = 0.0; //0 --> Avanti dritto 90 --> Destra 270 --> Sinistra 180 --> Indietro
-        double Δφ = Math.log( Math.tan(endLat / 2 + Math.PI / 4) / Math.tan(startLat / 2 + Math.PI / 4) );
-        double Δlon = Math.abs(startLng - endLng);
-        double direzione = Math.atan2(Δlon,Δφ);
-        
-        //if(direzione > 0 && direzione < 360)
-        angle = direzione;
-        
-        return angle;        
+    private static double calculateAngle(double x1, double y1, double x2, double y2) { //<-- Funzionante ma impreciso
+        double angle = Math.toDegrees(Math.atan2(x2 - x1, y2 - y1));
+        // Keep angle between 0 and 360
+        angle = angle + Math.ceil(-angle / 360) * 360;
+
+        return angle;
     }
 
 }
