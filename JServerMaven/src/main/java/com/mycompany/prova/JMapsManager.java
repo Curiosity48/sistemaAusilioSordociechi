@@ -5,6 +5,7 @@
  */
 package com.mycompany.prova;
 
+import com.mycompany.prova.ResultObjects.JMapResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.maps.DirectionsApi;
