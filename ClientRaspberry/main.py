@@ -1,12 +1,12 @@
 import cv2
-import Bluetooth
+# import Bluetooth
 
 cv2.namedWindow("Original")
 vc = cv2.VideoCapture(0)
 
 if vc.isOpened():   # try to get the first frame
     rval, frame = vc.read()
-    bt = Bluetooth
+    # bt = Bluetooth
 else:
     rval = False
 
